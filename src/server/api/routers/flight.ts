@@ -1,12 +1,9 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 
 export const flightRouter = createTRPCRouter({
-  craete: protectedProcedure
+  craete: publicProcedure
     .input(
       z.object({
         startTime: z.coerce.date(),
@@ -15,14 +12,17 @@ export const flightRouter = createTRPCRouter({
         endDate: z.coerce.date(),
         departureCity: z.string(),
         destinationCity: z.string(),
-        volType: z.enum(['Direct', 'Escale'])
+        volType: z.enum(["Direct", "Escale"]),
       })
     )
-    .query(({ input, ctx }) => {
-      // const flight = await ctx.prisma.flight.
+    .mutation(({ input, ctx }) => {
+      const flight = ctx.prisma.flight.create({
+        data: input,
+      });
+      return flight;
     }),
 
-    update: protectedProcedure
+  update: publicProcedure
     .input(
       z.object({
         id: z.string(),
@@ -32,19 +32,31 @@ export const flightRouter = createTRPCRouter({
         endDate: z.coerce.date(),
         departureCity: z.string(),
         destinationCity: z.string(),
-        volType: z.enum(['Direct', 'Escale'])
+        volType: z.enum(["Direct", "Escale"]),
       })
     )
-    .query(({ input, ctx }) => {
-      // const flight = await ctx.prisma.flight.
+    .mutation(async ({ input, ctx }) => {
+      const flight = await ctx.prisma.flight.update({
+        where: {
+          id: input.id,
+        },
+        data: input,
+      });
+
+      return flight;
     }),
 
-  getAll: protectedProcedure.query(({ ctx }) => {
-    // return ctx.prisma.flight.findMany();
-    return [];
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.flight.findMany();
   }),
 
-  getOne: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
+  getOne: publicProcedure
+  .input(z.object({ id: z.string() }))
+  .query(({ ctx, input }) => {
+    return ctx.prisma.flight.findUnique({
+      where: {
+        id: input.id
+      }
+    });
   }),
 });

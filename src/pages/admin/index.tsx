@@ -11,6 +11,7 @@ import { Layout, Menu, theme, Modal, Input, Select } from "antd";
 import Link from "next/link";
 import { Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import {api} from '@/utils/api';
 
 const { Column, ColumnGroup } = Table;
 
@@ -90,6 +91,7 @@ const App: React.FC = () => {
   } = theme.useToken();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const allFlight = api.flight.getAll.useQuery();
 
   const onSelect = (e) => {};
   const showModal = () => {
