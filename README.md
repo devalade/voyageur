@@ -1,28 +1,31 @@
-# Create T3 App
+# Voyager App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a booking ticket app build with t3 stack
 
-## What's next? How do I make an app with this?
+## Setup
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Clone the project
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+```bash
+git clone https://github.com/devalade/voyageur.git
+```
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Intall all dependencies
 
-## Learn More
+```bash
+# NPM 
+cd voyager
+npm install // or pnpm install or yarn install
+```
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Let's setup the database
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+```bash
+cp .env.example .env
+npx prisma generate
+npx prisma db push
+```
+Chckout Prisma if you want to use another database.
+# https://www.prisma.io/docs/reference/database-reference/connection-urls#env
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+You can now run the project by executing `npm run dev`
