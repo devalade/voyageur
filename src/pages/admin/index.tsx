@@ -12,45 +12,11 @@ import Link from "next/link";
 import { Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {api} from '@/utils/api';
+import CreateFlightModal from '@/features/flight/flight.form';
+import FlightTable from '@/features/flight/flight.table';
+import DashboardLayout from '@/components/dashboard-layout';
 
 const { Column, ColumnGroup } = Table;
-
-interface DataType {
-  vol: React.Key;
-  heurDep: string;
-  heurArr: string;
-  dateDep: number;
-  dateArr: string;
-  typeVols: string[];
-}
-
-const data: any[] = [
-  {
-    vol: "1",
-    heurDep: "Carounme",
-    heurArr: "Brown",
-    dateDep: 32,
-    dateArr: "New York No. 1 Lake Park",
-    typeVols: [""],
-  },
-  {
-    vol: "2",
-    heurDep: "Jim",
-    heurArr: "Green",
-    dateDep: 42,
-    dateArr: "London No. 1 Lake Park",
-    typeVols: [""],
-  },
-  {
-    key: "3",
-    heurDep: "Joe",
-    heurArr: "Black",
-    dateDep: 32,
-    dateArr: "Sydney No. 1 Lake Park",
-    typeVols: [""],
-  },
-];
-
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -93,7 +59,6 @@ const App: React.FC = () => {
   const [open, setOpen] = useState(false);
   const allFlight = api.flight.getAll.useQuery();
 
-  const onSelect = (e) => {};
   const showModal = () => {
     setOpen(true);
   };
@@ -106,208 +71,15 @@ const App: React.FC = () => {
     }, 3000);
   };
 
-  const handleCancel = () => {
+  const onClose = () => {
     setOpen(false);
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-      >
-        <div
-          style={{
-            height: 32,
-            margin: 16,
-            background: "rgba(255, 255, 255, 0.2)",
-          }}
-        />
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Link href="/admin">
-            <Menu.Item icon={<UserOutlined />}>Vol</Menu.Item>
-          </Link>
-          <Link href="/admin/time">
-            <Menu.Item icon={<DesktopOutlined />}>Passage</Menu.Item>
-          </Link>
-        </Menu>
-      </Sider>
-      <Layout className="site-layout">
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: "0 16px" }}>
-          <div className="">
-            <Button type="primary" ghost onClick={showModal}>
-              Ajouter
-            </Button>
-            {/* Notre fenetre modal */}
-            <Modal
-              open={open}
-              title="Créer un vol"
-              onOk={handleOk}
-              onCancel={handleCancel}
-              footer={[
-                <Button key="back" onClick={handleCancel}>
-                  Annuler
-                </Button>,
-                <Button
-                  key="submit"
-                  type="primary"
-                  loading={loading}
-                  onClick={handleOk}
-                >
-                  Créer
-                </Button>,
-              ]}
-            >
-              <div className="space-y-4">
-                <Form
-                  name="basic"
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  style={{ maxWidth: 600 }}
-                  initialValues={{ remember: true }}
-                  // onFinish={onFinish}
-                  // onFinishFailed={onFinishFailed}
-                  autoComplete="off"
-                >
-                  {/* Insérer les informations ayant rapport a l'ajout */}
-                  <Form.Item
-                    label="NomVol"
-                    name="vol"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter the name of the flight!",
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    label="Date de Départ"
-                    name="startTime"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your password!",
-                      },
-                    ]}
-                  >
-                    <DatePicker />
-                  </Form.Item>
-                  <Form.Item
-                    label="Date D'arrivée"
-                    name="startTime"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your password!",
-                      },
-                    ]}
-                  >
-                    <DatePicker />
-                  </Form.Item>
-                  <Form.Item
-                    label="Heure de Départ"
-                    name="startTime"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your password!",
-                      },
-                    ]}
-                  >
-                    <DatePicker picker="time" />
-                  </Form.Item>
-                  <Form.Item
-                    label="Heure D'arrivée"
-                    name="startTime"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your password!",
-                      },
-                    ]}
-                  >
-                    <DatePicker picker="time" />
-                  </Form.Item>
-                  <Form.Item
-                    label="TypeVol"
-                    name="typeVol"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter the name of the flight!",
-                      },
-                    ]}
-                  >
-                    <Select
-                      defaultValue="vol direct"
-                      style={{ width: 120 }}
-                      onChange={onSelect}
-                      options={[
-                        { value: "jack", label: "Jack" },
-                        { value: "lucy", label: "Lucy" },
-                        { value: "Yiminghe", label: "yiminghe" },
-                        {
-                          value: "disabled",
-                          label: "Disabled",
-                          disabled: true,
-                        },
-                      ]}
-                    />
-                  </Form.Item>
-                  {/* Informations ayant rapport au select de Type Vol */}
-
-                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                      Submit
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </div>
-            </Modal>
-            <Table dataSource={data}>
-              <Column title="Nom Vol" dataIndex="vol" key="vol" />
-              <Column
-                title="Heure de Depart"
-                dataIndex="heurDep"
-                key="heurDep"
-              />
-              <Column
-                title="Heure d'Arrivee"
-                dataIndex="heurArr"
-                key="heurArr"
-              />
-              <Column
-                title="Date de Depart "
-                dataIndex="dateDep"
-                key="dateDep"
-              />
-              <Column
-                title="Date d'Arrivee "
-                dataIndex="dateArr"
-                key="dateArr"
-              />
-              <Column title="Type de Vol " dataIndex="typeVol" key="typeVol" />
-              <Column
-                title="Action"
-                key="action"
-                render={(_: any, record: DataType) => (
-                  <Space size="middle">
-                    <a>Delete</a>
-                  </Space>
-                )}
-              />
-            </Table>
-          </div>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>
-          TECHIMA ©2023 Created by AWESOME PEOPLE
-        </Footer>
-      </Layout>
-    </Layout>
+    <DashboardLayout>
+        <CreateFlightModal open={open} onClose={onClose} />
+        <FlightTable data={allFlight.data ?? []} />
+    </DashboardLayout>
   );
 };
 

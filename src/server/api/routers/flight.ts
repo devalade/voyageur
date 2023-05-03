@@ -3,7 +3,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 
 export const flightRouter = createTRPCRouter({
-  craete: publicProcedure
+  create: publicProcedure
     .input(
       z.object({
         startTime: z.coerce.date(),
