@@ -2,6 +2,7 @@ import { createTRPCRouter } from "@/server/api/trpc";
 import { exampleRouter } from "@/server/api/routers/example";
 import {flightRouter} from './routers/flight';
 import {authRouter} from './routers/auth';
+import {cityRouter} from "@/server/api/routers/city";
 
 /**
  * This is the primary router for your server.
@@ -11,6 +12,7 @@ import {authRouter} from './routers/auth';
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
   auth: authRouter,
+  city: cityRouter,
   flight: flightRouter,
 });
 

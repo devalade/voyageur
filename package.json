@@ -6,6 +6,9 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
+    "make:migration": "prisma migrate dev --name",
+    "seed": "prisma db seed",
+    "migrate": "prisma migrate dev",
     "lint": "next lint",
     "start": "next start"
   },
@@ -50,5 +53,8 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.12.1"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seeder/city.seeder.ts"
   }
 }

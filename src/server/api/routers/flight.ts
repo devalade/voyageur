@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 export const flightRouter = createTRPCRouter({
   create: publicProcedure
@@ -10,9 +10,10 @@ export const flightRouter = createTRPCRouter({
         endTime: z.coerce.date(),
         startDate: z.coerce.date(),
         endDate: z.coerce.date(),
-        departureCity: z.string(),
-        destinationCity: z.string(),
+        departureCityId: z.string(),
+        destinationCityId: z.string(),
         volType: z.enum(["Direct", "Escale"]),
+        numberOfSeat: z.number().min(1).max(500)
       })
     )
     .mutation(({ input, ctx }) => {
@@ -30,9 +31,11 @@ export const flightRouter = createTRPCRouter({
         endTime: z.coerce.date(),
         startDate: z.coerce.date(),
         endDate: z.coerce.date(),
-        departureCity: z.string(),
-        destinationCity: z.string(),
+        departureCityId: z.string(),
+        destinationCityId: z.string(),
         volType: z.enum(["Direct", "Escale"]),
+        numberOfSeat: z.number().min(1).max(500)
+
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -59,4 +62,15 @@ export const flightRouter = createTRPCRouter({
       }
     });
   }),
+    delete: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+        return ctx.prisma.flight.delete({
+            where: {
+                id: input.id
+            }
+        });
+    }),
+
+
 });
