@@ -26,9 +26,11 @@
     "antd": "^5.4.6",
     "argon2": "^0.30.3",
     "dayjs": "^1.11.7",
+    "lucide-react": "^0.214.0",
     "next": "^13.2.4",
     "next-auth": "^4.21.0",
     "react": "18.2.0",
+    "react-barcode": "^1.4.6",
     "react-dom": "18.2.0",
     "superjson": "1.12.2",
     "zod": "^3.21.4"
