@@ -57,7 +57,7 @@ function DashboardLayout ({ children }: PropsWithChildren) {
             <Menu.Item icon={<UserOutlined />}>Vol</Menu.Item>
           </Link>
           <Link href="/admin/time">
-            <Menu.Item icon={<DesktopOutlined />}>Passage</Menu.Item>
+            <Menu.Item icon={<DesktopOutlined />}>Booked Ticket</Menu.Item>
           </Link>
         </Menu>
       </Sider>

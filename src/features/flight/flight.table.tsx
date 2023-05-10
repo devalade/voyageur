@@ -59,7 +59,7 @@ export default function FlightTable(props: FlightTableProps) {
                     render={(_: any, record: RouterOutputs['flight']['getAll'][number]) => (
                       <Space size="middle">
                         <Button type="link" onClick={() => onOpen(record.id)}  >Modifier</Button>
-                        <Button onClick={() => deleteFlight( { id: record.id })}>Delete</Button>
+                        <Button type="link" danger onClick={() => deleteFlight( { id: record.id })} >Delete</Button>
                       </Space>
                     )}
                   />

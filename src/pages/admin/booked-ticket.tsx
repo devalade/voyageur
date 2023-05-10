@@ -23,9 +23,6 @@ const App: React.FC = () => {
 
   return (
     <DashboardLayout>
-        <div>
-          <Button style={{ marginBlock: 24 }} onClick={() => setOpen(true)}>Ajouter un vol</Button>
-        </div>
         <CreateFlightModal open={open} onClose={onClose} />
         <FlightTable data={allFlight.data ?? []} />
     </DashboardLayout>
