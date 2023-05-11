@@ -66,13 +66,6 @@ export default function CreateFlightModal(props: CreateFlightProps) {
                     autoComplete="off"
                 >
                   {/* Insérer les informations ayant rapport a l'ajout */}
-                  <Form.Item
-                    label="NomVol"
-                    name="vol"
-                    rules={[{ required: true , message: "Please enter the name of the flight!" }]}
-                  >
-                    <Input />
-                  </Form.Item>
                     <Row gutter={12} style={{ width: '100%' }}>
                         <Col span={12}>
                           <Form.Item label="Date de Départ" name="startDate">

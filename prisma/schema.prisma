@@ -19,6 +19,8 @@ model BookedTicket {
   seat      Int
   flightId  String
   flight    Flight   @relation(fields: [flightId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -78,15 +80,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   firstName     String?
   lastName      String?
-  email         String?   @unique
+  email         String?        @unique
   passsword     String
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  BookedTicket  BookedTicket[]
 }
 
 model VerificationToken {

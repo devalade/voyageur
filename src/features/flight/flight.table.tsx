@@ -39,7 +39,7 @@ export default function FlightTable(props: FlightTableProps) {
                     title="Heure d'Arrivee"
                     dataIndex="endTime"
                     key="endTime"
-                    render={(_, record: RouterOutputs['flight']['getAll'][number]) => <span>{dayjs(record.startTime).format('HH:mm')}</span>}
+                    render={(_, record: RouterOutputs['flight']['getAll'][number]) => <span>{dayjs(record.endTime).format('HH:mm')}</span>}
                   />
                   <Table.Column
                     title="Date de Depart "
@@ -53,6 +53,11 @@ export default function FlightTable(props: FlightTableProps) {
                     key="endDate"
                     render={(_, record: RouterOutputs['flight']['getAll'][number]) => <span>{dayjs(record.endDate).format('ddd, mm YY')}</span>}
                   />
+                <Table.Column
+                    title="Nombre de siège"
+                    dataIndex="numberOfSeat"
+                    key="numberOfSeat"
+                />
                   <Table.Column
                     title="Action"
                     key="action"

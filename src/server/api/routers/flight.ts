@@ -35,7 +35,6 @@ export const flightRouter = createTRPCRouter({
         destinationCityId: z.string(),
         volType: z.enum(["Direct", "Escale"]),
         numberOfSeat: z.number().min(1).max(500)
-
       })
     )
     .mutation(async ({ input, ctx }) => {
